@@ -1,3 +1,7 @@
+# comments on changing things:
+#changing the ki to 0 creates overshoot spikes when rapid target changes occur
+#changing target to be steady change makes it follow it with accuracy based on the rate of change. This happens because the rate can be relyably figure out and acocunt for
+#found that derivative term increases the error
 """Modified version of the example code from Janert,
 Feedback Control For Computer Systems
 
@@ -45,14 +49,15 @@ class Buffer:
         return self.queued
 
 class Controller:
-    def __init__( self, kp, ki ):
+    def __init__( self, kp, ki, kd ):
         """Initializes the controller.
 
         kp: proportional gain
         ki: integral gain
         """
-        self.kp, self.ki = kp, ki
+        self.kp, self.ki, self.kd = kp, ki, kd
         self.i = 0       # Cumulative error ("integral")
+        self.lastErr = 1;
 
     def work( self, e ):
         """Computes the number of jobs to be added to the ready queue.
@@ -61,9 +66,15 @@ class Controller:
 
         returns: float number of jobs
         """
+        if(e != 0):
+        	derivErr = self.lastErr / e
+        else:
+        	derivErr = 0;
+        	print "nada"
         self.i += e
+        self.lastErr = e
 
-        return self.kp*e + self.ki*self.i
+        return self.kp*e + self.ki*self.i + self.kd*derivErr
 
 # ============================================================
 
@@ -77,9 +88,10 @@ def closed_loop( c, p, tm=5000 ):
     returns: tuple of sequences (times, targets, errors)
     """
     def setpoint( t ):
-        if t < 100: return 0
-        if t < 300: return 50
-        return 10
+        # if t < 100: return 0
+        # if t < 300: return 50
+        # return 10
+        return t / 5
     
     y = 0
     res = []
@@ -96,7 +108,7 @@ def closed_loop( c, p, tm=5000 ):
 
 # ============================================================
 
-c = Controller( 1.25, 0.01 )
+c = Controller( 1.25, 0.01, 5)
 p = Buffer( 50, 10 )
 
 # run the simulation
