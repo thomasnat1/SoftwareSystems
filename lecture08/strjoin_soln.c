@@ -27,7 +27,7 @@ char *strjoin(char *array[], int n)
     char *dest, *buf;
 
     for (i=0; i<n; i++) {
-	total += strlen(array[i]);
+	   total += strlen(array[i]);
     }
 
     buf = (char *) malloc (total * sizeof(char));
@@ -35,8 +35,8 @@ char *strjoin(char *array[], int n)
     dest = buf;
 
     for (i=0; i<n; i++) {
-	strcpy(dest, array[i]);
-	dest += strlen(array[i]);
+    	strcpy(dest, array[i]);
+    	dest += strlen(array[i]);
     }
     return buf;
 }
