@@ -18,13 +18,33 @@ License: Creative Commons Attribution-ShareAlike 3.0
 
 char *center(char *s, int n, char fillchar)
 {
-    // FILL THIS IN
-    //    return NULL;
+    //get the number of dots
+    int numDots = n - strlen(s);
+    //alloc result string
+    char *result = malloc((numDots + strlen(s)) * sizeof(char) + 1);
+
+    //add first set of fills
+    int i;
+    for(i = 0; i < (numDots/2); i++){
+        result[i] = fillchar;
+    }
+    //add s string
+    strcat(result, s);
+
+    //add second set of fills
+    int secondStart = strlen(s) + (numDots / 2);
+    for(i = secondStart; i < secondStart + (numDots - (numDots/2)) ; i++){
+        result[i] = fillchar;
+    }
+    return result;
 }
 
 
 int main (int argc, char *argv[])
 {
+    ///////////////////////////////////
+    //INSERT PICTURE DRAWING HERE :P//
+    /////////////////////////////////
     char *s = center("Software", 30, '.');
     printf("%s\n", s);
 
