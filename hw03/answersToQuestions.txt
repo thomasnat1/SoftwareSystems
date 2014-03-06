@@ -1,0 +1,21 @@
+These are the run times for one set of all the random generate methods:
+dummy 	 2672.000000 ms
+dummy 	 2672.000000 ms
+dummy2 	 9412.000000 ms
+dummy2 	 9464.000000 ms
+mine 	 11104.000000 ms
+mine 	 11964.000000 ms
+theirs 	 10556.000000 ms
+theirs 	 10824.000000 ms
+mine 2 	 22524.000000 ms
+mine 2 	 23004.000000 ms
+their double 	 11904.000000 ms
+their double 	 11928.000000 ms
+my double 	 33260.000000 ms
+my double 	 31944.000000 ms
+
+For the first question: my_random_float and random_float are about the exact same speed
+For the second question: The my double implementation is about 3 times slower than the standard implementation of random double
+	This is very likely because we did not use the cool assembly hack in the implementation, which would likely make it faster
+
+The distribution is a straight line, yay

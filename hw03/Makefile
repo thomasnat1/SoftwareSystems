@@ -18,3 +18,6 @@ tutorial: tutorial.c
 
 test_rand: test_rand.c
 	gcc -O3 test_rand.c -o test_rand
+
+clean:
+	rm test_rand
