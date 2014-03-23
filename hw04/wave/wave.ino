@@ -46,12 +46,16 @@ void setup() {
 }
 
 void writeByte(int x) {
-  int pin;
-  
-  for (pin=13; pin>=6; pin--) {
-    digitalWrite(pin, x&1);
-    x >>= 1;
-  }
+    //reverse all bits
+    PORTD = (PORTD&B00111111)|(x<<6);
+    PORTB = (x>>2)&B00111111;
+
+//  int pin;
+//  
+//  for (pin=13; pin>=6; pin--) {
+//    digitalWrite(pin, x&1);
+//    x >>= 1;
+//  }
 }
 
 int counter = 0;
