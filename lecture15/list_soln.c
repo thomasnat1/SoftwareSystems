@@ -70,12 +70,12 @@ int remove_by_value(Node **head, int val) {
     }
 
     for(; node->next != NULL; node = node->next) {
-	if (node->next->val == val) {
-	    victim = node->next;
-	    node->next = victim->next;
-	    free(victim);
-	    return 1;
-	}
+    	if (node->next->val == val) {
+    	    victim = node->next;
+    	    node->next = victim->next;
+    	    free(victim);
+    	    return 1;
+    	}
     }
     return 0;
 }
@@ -86,17 +86,17 @@ void reverse(Node **head) {
     Node *next, *temp;
 
     if (node == NULL || node->next == NULL) {
-	return;
+    	return;
     }
 
     next = node->next;
     node->next = NULL;
 
     while (next != NULL) {
-	temp = next->next;
-	next->next = node;
-	node = next;
-	next = temp;
+    	temp = next->next;
+    	next->next = node;
+    	node = next;
+    	next = temp;
     }
     *head = node;
 }
