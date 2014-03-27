@@ -23,12 +23,12 @@ char *interleave(char *s1, char *s2)
     dest = malloc (size * sizeof(char));
 
     for (k=0; k<size-1; ) {
-	if (s1[i]) {
-	    dest[k++] = s1[i++];
-	}
-	if (s2[j]) {
-	    dest[k++] = s2[j++];
-	}
+    	if (s1[i]) {
+    	    dest[k++] = s1[i++];
+    	}
+    	if (s2[j]) {
+    	    dest[k++] = s2[j++];
+    	}
     }
     dest[k] = '\0';
     return dest;

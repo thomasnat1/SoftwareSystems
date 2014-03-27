@@ -70,7 +70,6 @@ class Controller:
         	derivErr = self.lastErr / e
         else:
         	derivErr = 0;
-        	print "nada"
         self.i += e
         self.lastErr = e
 
@@ -91,7 +90,7 @@ def closed_loop( c, p, tm=5000 ):
         # if t < 100: return 0
         # if t < 300: return 50
         # return 10
-        return t / 5
+        return t / 10
     
     y = 0
     res = []
