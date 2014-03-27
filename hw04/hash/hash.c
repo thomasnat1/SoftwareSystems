@@ -299,9 +299,8 @@ void map_add(Map *map, Hashable *key, Value *value)
     //hash the key to get hash value
     int hashValue = hash_hashable(key);
     // printf("hash Value: %d \n", hashValue);
-    if(hashValue > 9){
-        hashValue = 9;
-    }
+    //mod the hash value to get it to fit within range
+    hashValue = hashValue % (map->n);
     if(map->lists[hashValue]){
         Node *checkNode = map->lists[hashValue];
         while(checkNode->next){
@@ -318,9 +317,8 @@ void map_add(Map *map, Hashable *key, Value *value)
 Value *map_lookup(Map *map, Hashable *key)
 {
     int hashValue = hash_hashable(key);
-    if(hashValue > 9){
-        hashValue = 9;
-    }
+    //mod the hash value to get it to fit within range
+    hashValue = hashValue % (map->n);
     if(map->lists[hashValue]){
         return list_lookup(map->lists[hashValue], key);
     }else{
