@@ -10,7 +10,7 @@ License: Creative Commons Attribution-ShareAlike 3.0
 #include <pthread.h>
 #include "mutex.h"
 
-#define SIZE 1000
+#define SIZE 100000
 
 typedef struct {
     int next_id;
@@ -39,8 +39,10 @@ Environment *make_environment ()
 
 int get_next_id (Environment *env)
 {
-    int id = env->next_id;
-    env->next_id++;
+	acquire(env->lock);
+	    int id = env->next_id;
+	    env->next_id++;
+    release(env->lock);
     return id;
 }
 
@@ -49,12 +51,12 @@ void loop_and_count (pthread_t self, Environment *env)
     int id;
     
     while (1) {
-	id = get_next_id (env);
-	
-	// printf ("%d got %d\n", self, id);
-	
-	if (id >= SIZE) return;
-	env->array[id]++;
+		id = get_next_id (env);
+		
+		// printf ("%d got %d\n", self, id);
+		
+		if (id >= SIZE) return;
+		env->array[id]++;
     }
 }
 
@@ -65,9 +67,9 @@ void check_array (Environment *env)
     printf ("Checking...\n");
     
     for (i=0; i<SIZE; i++) {
-	if (env->array[i] != 1) {
-	    printf ("%d\t%d\n", i, env->array[i]);
-	}
+		if (env->array[i] != 1) {
+		    printf ("%d\t%d\n", i, env->array[i]);
+		}
     }
 }
 
@@ -95,34 +97,37 @@ void *entry (void *arg)
 
 int main()
 {
-    Environment *env;
-    pthread_t self;
-    pthread_t child;
-    int ret;
+	int a = 0;
+	for(a = 0; a < 10000; a++){
+	    Environment *env;
+	    pthread_t self;
+	    pthread_t child;
+	    int ret;
 
-    self = pthread_self ();
+	    self = pthread_self ();
 
-    env = make_environment ();
+	    env = make_environment ();
 
-    /* the parent thread uses sproc to create the new thread, passing
-       a pointer to card as an argument */
+	    /* the parent thread uses sproc to create the new thread, passing
+	       a pointer to card as an argument */
 
-    ret = pthread_create (&child, NULL, entry, (void *) env);
-    if (ret == -1) {
-	perror ("pthread_create failed");
-	exit (-1);
-    }
-    
-    loop_and_count (self, env);
+	    ret = pthread_create (&child, NULL, entry, (void *) env);
+	    if (ret == -1) {
+			perror ("pthread_create failed");
+			exit (-1);
+	    }
+	    
+	    loop_and_count (self, env);
 
-    printf ("Parent done looping.\n");
-    
-    ret = pthread_join (child, NULL);
-    if (ret == -1) {
-	perror ("pthread_join failed");
-	exit (-1);
-    }
-  
-    check_array (env);
+	    printf ("Parent done looping.\n");
+	    
+	    ret = pthread_join (child, NULL);
+	    if (ret == -1) {
+			perror ("pthread_join failed");
+			exit (-1);
+	    }
+	  
+	    check_array (env);
+	}
     return 0;
 }

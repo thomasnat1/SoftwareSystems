@@ -147,6 +147,19 @@ Node *make_something() {
 }
 
 int main() {
+    // Node *node1 = make_node(1, NULL);
+    // Node *node2 = make_node(2, NULL);
+    // Node *node3 = make_node(3, NULL);
+
+    // int val = pop(&node1);
+    // push(&node2, val);
+    // node3->next = node2;
+    // print_list(node1);
+    // printf("pause\n");
+    // print_list(node2);
+    // printf("pause\n");
+    // print_list(node3);
+
     // make a list of even numbers
     Node *test_list = make_node(2, NULL);
     test_list->next = make_node(4, NULL);

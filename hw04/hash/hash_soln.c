@@ -262,7 +262,7 @@ Map *make_map(int n)
     map->n = n;
     map->lists = (Node **) malloc (sizeof (Node *) * n);
     for (i=0; i<n; i++) {
-	map->lists[i] = NULL;
+    	map->lists[i] = NULL;
     }
     return map;
 }

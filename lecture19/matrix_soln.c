@@ -98,11 +98,11 @@ void mult_matrix(Matrix *A, Matrix *B, Matrix *C) {
     assert(B->cols == C->cols);
 
     for (i=0; i<C->rows; i++) {
-	for (j=0; j<C->cols; j++) {
-	    for (k=0; k<A->cols; k++) {
-		C->data[i][j] += A->data[i][k] * B->data[k][j];
-	    }
-	}
+    	for (j=0; j<C->cols; j++) {
+    	    for (k=0; k<A->cols; k++) {
+        		C->data[i][j] += A->data[i][k] * B->data[k][j];
+    	    }
+    	}
     }
 }
 
