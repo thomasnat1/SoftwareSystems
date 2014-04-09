@@ -27,7 +27,7 @@ Matrix *make_matrix(int rows, int cols) {
 
     for (i=0; i<rows; i++) {
 	// use calloc to initialize to 0
-	matrix->data[i] = calloc(cols, sizeof(double));
+    	matrix->data[i] = calloc(cols, sizeof(double));
     }
     return matrix;
 }
@@ -37,10 +37,10 @@ void print_matrix(Matrix *matrix) {
     int i, j;
 
     for (i=0; i<matrix->rows; i++) {
-	for (j=0; j<matrix->cols; j++) {
-	    printf("%lf ", matrix->data[i][j]);
-	}
-	printf("\n");
+    	for (j=0; j<matrix->cols; j++) {
+    	    printf("%lf ", matrix->data[i][j]);
+    	}
+    	printf("\n");
     }
 }
 
@@ -49,9 +49,9 @@ void increment_matrix(Matrix *matrix, int incr) {
     int i, j;
 
     for (i=0; i<matrix->rows; i++) {
-	for (j=0; j<matrix->cols; j++) {
-	    matrix->data[i][j] += incr;
-	}
+    	for (j=0; j<matrix->cols; j++) {
+    	    matrix->data[i][j] += incr;
+    	}
     }
 }
 
@@ -60,9 +60,9 @@ void consecutive_matrix(Matrix *matrix) {
     int i, j;
 
     for (i=0; i<matrix->rows; i++) {
-	for (j=0; j<matrix->cols; j++) {
-	    matrix->data[i][j] = i * matrix->cols + j;
-	}
+    	for (j=0; j<matrix->cols; j++) {
+    	    matrix->data[i][j] = i * matrix->cols + j;
+    	}
     }
 }
 
@@ -75,9 +75,9 @@ void add_matrix(Matrix *A, Matrix *B, Matrix *C) {
     assert(A->cols == B->cols && B->cols == C->cols);
 
     for (i=0; i<A->rows; i++) {
-	for (j=0; j<A->cols; j++) {
-	    C->data[i][j] =  A->data[i][j] + B->data[i][j];
-	}
+    	for (j=0; j<A->cols; j++) {
+    	    C->data[i][j] =  A->data[i][j] + B->data[i][j];
+    	}
     }
 }
 
@@ -98,11 +98,11 @@ void mult_matrix(Matrix *A, Matrix *B, Matrix *C) {
     assert(B->cols == C->cols);
 
     for (i=0; i<C->rows; i++) {
-	for (j=0; j<C->cols; j++) {
-	    for (k=0; k<A->cols; k++) {
-		C->data[i][j] += A->data[i][k] * B->data[k][j];
-	    }
-	}
+    	for (j=0; j<C->cols; j++) {
+    	    for (k=0; k<A->cols; k++) {
+	           C->data[i][j] += A->data[i][k] * B->data[k][j];
+    	    }
+    	}
     }
 }
 
@@ -118,9 +118,9 @@ double matrix_sum1(Matrix *A) {
     int i, j;
 
     for (i=0; i<A->rows; i++) {
-	for (j=0; j<A->cols; j++) {
-	    total += A->data[i][j];
-	}
+    	for (j=0; j<A->cols; j++) {
+    	    total += A->data[i][j];
+    	}
     }
     return total;
 }
@@ -130,9 +130,9 @@ double matrix_sum2(Matrix *A) {
     int i, j;
 
     for (j=0; j<A->cols; j++) {
-	for (i=0; i<A->rows; i++) {
-	    total += A->data[i][j];
-	}
+    	for (i=0; i<A->rows; i++) {
+    	    total += A->data[i][j];
+    	}
     }
     return total;
 }
@@ -146,11 +146,11 @@ double *row_sum(Matrix *A) {
     double *res = malloc(A->rows * sizeof(double));
 
     for (i=0; i<A->rows; i++) {
-	total = 0.0;
-	for (j=0; j<A->cols; j++) {
-	    total += A->data[i][j];
-	}
-	res[i] = total;
+    	total = 0.0;
+    	for (j=0; j<A->cols; j++) {
+    	    total += A->data[i][j];
+    	}
+    	res[i] = total;
     }
     return res;
 }
@@ -199,7 +199,7 @@ int main() {
 
     double *sums = row_sum(A);
     for (i=0; i<A->rows; i++) {
-	printf("row %d\t%lf\n", i, sums[i]);
+    	printf("row %d\t%lf\n", i, sums[i]);
     }
     // should print 6, 22, 38
 
