@@ -155,6 +155,71 @@ double *row_sum(Matrix *A) {
     return res;
 }
 
+// Adds up the columns of A and returns a heap-allocated array of doubles.
+double *col_sum(Matrix *A) {
+    double total;
+    int i, j;
+
+    double *res = malloc(A->cols * sizeof(double));
+
+    for (i=0; i<A->cols; i++) {
+        total = 0.0;
+        for (j=0; j<A->rows; j++) {
+            total += A->data[j][i];
+        }
+        res[i] = total;
+    }
+    return res;
+}
+
+
+
+int is_magic_square(Matrix *A){
+    if(A->cols != A->rows){
+        printf("Matrix not squre\n");
+        return 0;
+    }
+    double toCheck;
+    int i;
+    //get row sums
+    double *rowSums = row_sum(A);
+    //set first row as value to check other sums by
+    if(rowSums){
+        toCheck = rowSums[0];
+    }else{
+        return 0;
+    }
+
+    //check row sums 
+    for (i=0; i<A->rows; i++) {
+        if(toCheck != rowSums[i]){
+            return 0;            
+        }
+    }
+
+    //ger column sums
+    double *colSums = row_sum(A);
+
+    //check column sums
+    for (i=0; i<A->cols; i++) {
+        if(toCheck != colSums[i]){
+            return 0;            
+        }
+    }
+
+    //check diagnols
+    double diagSumForward = 0.0;
+    double diagSumBackward = 0.0;
+    for(i = 0; i < A->cols; i++){
+        diagSumForward += A->data[i][i];
+        diagSumBackward += A->data[A->cols - 1 - i][i];
+    }
+    if(diagSumForward != toCheck && diagSumBackward != toCheck){
+        return 0;
+    }
+
+    return 1;
+}
 /* 
    http://en.wikipedia.org/wiki/Magic_square
 
@@ -168,6 +233,8 @@ double *row_sum(Matrix *A) {
 
    Feel free to use row_sum().
 */
+
+
 
 
 int main() {
@@ -198,10 +265,27 @@ int main() {
     printf("sum = %lf\n", sum);
 
     double *sums = row_sum(A);
-    for (i=0; i<A->rows; i++) {
+    for (i=0; i<A->cols; i++) {
     	printf("row %d\t%lf\n", i, sums[i]);
     }
     // should print 6, 22, 38
+
+    printf("Magic unit test\n\n");
+    Matrix *E = make_matrix(3,3);
+    E->data[0][0] = 2;
+    E->data[1][0] = 7;
+    E->data[2][0] = 6;
+    E->data[0][1] = 9;
+    E->data[1][1] = 5;
+    E->data[2][1] = 1;
+    E->data[0][2] = 4;
+    E->data[1][2] = 3;
+    E->data[2][2] = 8;
+
+    // printf("Was D magic? (0): %d\n", is_magic_square(D));
+    printf("Was E magic? (1): %d\n", is_magic_square(E));
+    E->data[2][2] = 2;
+    printf("Was E magic now? (0): %d\n", is_magic_square(E));
 
     return 0;
 }
