@@ -22,6 +22,16 @@ Node *make_node(int val, Node *next) {
     return node;
 }
 
+void free_list(Node *head){
+    Node *current = head;
+    Node *last = NULL;
+    while (current != NULL) {
+        last = current;
+        current = current->next;        
+        free(last);
+    }
+}
+
 void print_list(Node *head) {
     Node *current = head;
 
@@ -129,6 +139,7 @@ Node *make_something() {
     int val = pop(&node1);
     push(&node2, val);
     node3->next = node2;
+    free(node1);
 
     return node3;
 }
@@ -161,7 +172,9 @@ int main() {
     print_list(empty);
 
     Node *something = make_something();
-    free(something);
+    free_list(something);
+    free_list(test_list);
+    free_list(empty);
 
     return 0;
 }
