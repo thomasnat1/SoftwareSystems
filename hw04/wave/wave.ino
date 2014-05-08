@@ -18,8 +18,7 @@
   License: Public Domain
  
  */
- 
- 
+
 
 int sensorPin = A0;    // select the input pin for the potentiometer
 int ledPin = 5;       // select the pin for the LED
@@ -30,8 +29,8 @@ int buttonPin2 = 3;
 void setup() {
   Serial.begin(9600);
   
-  pinMode(buttonPin1, INPUT_PULLUP);  
-  pinMode(buttonPin2, INPUT_PULLUP);  
+  pinMode(buttonPin1, 1);  
+  pinMode(buttonPin2, 1);  
 
   pinMode(ledPin, OUTPUT);
   

@@ -8,17 +8,14 @@ License: GNU GPLv3
 #include <stdio.h>
 #include <stdlib.h>
 
-int global;
+void foo(){
+	int pie = 4;
+	printf("Address of pie is %p\n", &pie);
+    foo();
+}
 
 int main ()
 {
-    int local = 5;
-    void *p = malloc(128);
-
-    printf ("Address of main is %p\n", main);
-    printf ("Address of global is %p\n", &global);
-    printf ("Address of local is %p\n", &local);
-    printf ("Address of p is %p\n", p);
-    
+    foo();
     return 0;
 }
